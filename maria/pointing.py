@@ -33,10 +33,17 @@ def get_pointing_config(pointing_name="default", **kwargs):
     POINTING_CONFIG = POINTING_CONFIGS[pointing_name].copy()
     for k, v in kwargs.items():
         POINTING_CONFIG[k] = v
+
+    print("in get_pointing_config")
+    print(POINTING_CONFIG)
+    print()
     return POINTING_CONFIG
 
 
 def get_pointing(pointing_name="default", **kwargs):
+    print("in get pointing")
+    print(pointing_name)
+    print()
     return Pointing(**get_pointing_config(pointing_name, **kwargs))
 
 
@@ -50,7 +57,12 @@ def get_offsets(scan_pattern, integration_time, sample_rate, **scan_options):
             integration_time=integration_time, sample_rate=sample_rate, **scan_options
         )
 
-    if scan_pattern == "daisy":
+    elif scan_pattern == "double_circle":
+        return utils.pointing.get_double_circle_offsets(
+            integration_time=integration_time, sample_rate=sample_rate, **scan_options
+        )
+
+    elif scan_pattern == "daisy":
         return utils.pointing.get_daisy_offsets_constant_speed(
             integration_time=integration_time, sample_rate=sample_rate, **scan_options
         )
@@ -71,7 +83,7 @@ class Pointing:
     """
 
     description: str = ""
-    start_time: float | str = "2022-02-10T06:00:00"
+    start_time: str = "2022-02-10T06:00:00"
     integration_time: float = 60.0
     sample_rate: float = 20.0
     pointing_frame: str = "ra_dec"
@@ -116,6 +128,7 @@ class Pointing:
         self.n_time = len(self.time)
 
         # this is in pointing_units
+        print(self.scan_pattern)
         x_scan_offsets, y_scan_offsets = getattr(utils.pointing, self.scan_pattern)(
             integration_time=self.integration_time,
             sample_rate=self.sample_rate,

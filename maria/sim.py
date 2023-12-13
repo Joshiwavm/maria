@@ -47,6 +47,7 @@ class Simulation(BaseSimulation):
             **self.parsed_kwargs["site"],
         )
 
+        print(pointing, "hoi")
         self.atm_sim = None
         self.map_sim = None
         self.white_noise_sim = None

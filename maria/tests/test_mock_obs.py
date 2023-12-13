@@ -16,7 +16,7 @@ def test_sim_with_params():
         # Mandatory minimal weither settings
         # ---------------------
         array="MUSTANG-2",  # Array type
-        pointing="daisy",  # Scanning strategy
+        pointing="double_circle",  # Scanning strategy
         site="GBT",  # Site
         atm_model="single_layer",  # The atmospheric model, set to None if you want a noiseless observation.
         # True sky input
@@ -29,7 +29,7 @@ def test_sim_with_params():
         integration_time=600,  # seconds
         scan_center=(150.0, 10),  # degrees
         pointing_frame="ra_dec",  # frame
-        scan_options={"radius": 0.05, "speed": 0.05, "petals": 5},
+        scan_options={"radius": 0.05, "speed": 0.05},
         # Additional inputs:
         # ----------------------
         map_units="Jy/pixel",  # Kelvin Rayleigh Jeans (K, defeault) or Jy/pixel

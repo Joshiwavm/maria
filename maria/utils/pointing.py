@@ -16,6 +16,22 @@ def daisy_pattern_miss_center(phase, radius, petals, miss_factor, miss_freq):
     return np.real(z), np.imag(z)
 
 
+def double_circle_offsets(phase, radius, miss_freq):
+    x_c = radius * np.sin(phase)
+    y_c = radius * np.cos(phase)
+
+    x_p = radius * np.sin(phase * miss_freq) + x_c
+    y_p = radius * np.cos(phase * miss_freq) + y_c
+    return x_p, y_p
+
+
+def double_circle(integration_time, sample_rate, speed, radius, miss_freq):
+    time = np.arange(0, integration_time, 1 / sample_rate)
+    phase = time * speed / radius
+
+    return double_circle_offsets(phase, radius, miss_freq)
+
+
 def get_constant_speed_offsets(
     pattern, integration_time, sample_rate, speed, eps=1e-6, **scan_options
 ):

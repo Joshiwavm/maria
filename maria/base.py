@@ -61,6 +61,11 @@ class BaseSimulation:
             if isinstance(array, Array)
             else get_array(array, **parsed_sim_kwargs["array"])
         )
+        print("hellooo in BAse sim")
+        print(pointing)
+        print()
+        print(parsed_sim_kwargs["pointing"])
+
         self.pointing = (
             pointing
             if isinstance(pointing, Pointing)
