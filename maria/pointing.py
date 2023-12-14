@@ -33,17 +33,10 @@ def get_pointing_config(pointing_name="default", **kwargs):
     POINTING_CONFIG = POINTING_CONFIGS[pointing_name].copy()
     for k, v in kwargs.items():
         POINTING_CONFIG[k] = v
-
-    print("in get_pointing_config")
-    print(POINTING_CONFIG)
-    print()
     return POINTING_CONFIG
 
 
 def get_pointing(pointing_name="default", **kwargs):
-    print("in get pointing")
-    print(pointing_name)
-    print()
     return Pointing(**get_pointing_config(pointing_name, **kwargs))
 
 
@@ -128,7 +121,6 @@ class Pointing:
         self.n_time = len(self.time)
 
         # this is in pointing_units
-        print(self.scan_pattern)
         x_scan_offsets, y_scan_offsets = getattr(utils.pointing, self.scan_pattern)(
             integration_time=self.integration_time,
             sample_rate=self.sample_rate,
